@@ -1,0 +1,105 @@
+---
+import alternativeToLogo from '../assets/AlternativeTo Logo.svg'
+import capterraLogo from '../assets/Capterra Logo.svg'
+import heroImage from '../assets/Hero Image.png'
+import netflixLogo from '../assets/Netflix Logo.svg'
+import shopifyLogo from '../assets/Shopify Logo.svg'
+import spotifyLogo from '../assets/Spotify Logo.svg'
+import walmartLogo from '../assets/Walmart Logo.svg'
+import Link from '../components/Link.astro'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title='JavaScript30 Navbar - Challenge'>
+  <main class='container'>
+    <section class='hero'>
+      <div class='hero-content'>
+        <h1>
+          Ondeck is your remote <span>conferece calling tool</span>
+        </h1>
+        <p>
+          Ondeck is a service that allow you to create beautiful, onlinem and
+          encrypted video calls for you and your remote team.
+        </p>
+        <Link secondary>Try for free</Link>
+        <p>
+          5.0 Rating based on reviers from:
+          <img src={capterraLogo} alt='Capterra Logo' />
+          <img src={alternativeToLogo} alt='AlternativeTo Logo' />
+        </p>
+      </div>
+
+      <div class='hero-image'>
+        <img height='690' width='824' src={heroImage} alt='Hero Image' />
+      </div>
+    </section>
+
+    <section class='brands'>
+      <p>Trusted by 3+ million people at companies like</p>
+      <div class='brand-logos'>
+        <img width='193' height='52' src={netflixLogo} alt='Netflix Logo' />
+        <img width='185' height='52' ' src={shopifyLogo} alt='Shopify Logo' />
+        <img width='174' height='52' src={spotifyLogo} alt='Spotify Logo' />
+        <img width='218' height='52' src={walmartLogo} alt='Walmart Logo' />
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  section.hero {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .hero-image {
+    display: none;
+    width: 50%;
+  }
+  .hero-image img {
+    width: 100%;
+    height: auto;
+  }
+  .hero-content:where(h1, p) {
+    margin-top: 1rem;
+  }
+
+  h1 > span {
+    color: #f7b300;
+  }
+
+  .link-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+    gap: 1rem;
+    padding: 0;
+  }
+
+  section.brands {
+    text-align: center;
+    margin-top: 4rem;
+  }
+  .brand-logos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    gap: 1rem;
+  }
+  .brand-logos > img {
+    width: 100%;
+    height: auto;
+  }
+  @media (min-width: 768px) {
+    section.hero {
+      margin-top: 4rem;
+    }
+    .brand-logos {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .hero-image {
+      display: block;
+    }
+  }
+</style>

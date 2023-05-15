@@ -1,0 +1,177 @@
+---
+import closeIcon from '../assets/Close.svg'
+import fiberIcon from '../assets/Fiber_Icon.svg'
+import gradieIcon from '../assets/Gradie_Icon.svg'
+import menuIcon from '../assets/Menu.svg'
+import spenseIcon from '../assets/Spense_Icon.svg'
+import Link from './Link.astro'
+
+const dropdownContent = [
+  {
+    icon: spenseIcon,
+    title: 'Spense',
+    description:
+      'Spense is a landing page for writers. Great for practicing absolute positioning and flex layouts.'
+  },
+  {
+    icon: fiberIcon,
+    title: 'Fiber Landing Page',
+    description:
+      'An online portfolio generator. Great to practice flex/grid layouts, and absolute positioning.'
+  },
+  {
+    icon: gradieIcon,
+    title: 'Gradie Sign Up Page',
+    description:
+      'Gradie is a simple sign up page, great to pratice centering layouts.'
+  }
+]
+---
+
+<li class='dropdown'>
+  <button aria-expanded='false' aria-controls='dropdown-menu'>
+    <span>Producs</span>
+    <img class='open' src={menuIcon} alt='' />
+    <img class='close' src={closeIcon} alt='' />
+  </button>
+  <ul id='dropdown-menu'>
+    <h2>Products</h2>
+    {
+      dropdownContent.map(({ description, icon, title }) => (
+        <li>
+          <Link>
+            <img src={icon} alt={title + 'Icon'} />
+            <div>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </div>
+          </Link>
+        </li>
+      ))
+    }
+  </ul>
+</li>
+
+<style>
+  .dropdown button[aria-expanded='true'] ~ ul {
+    opacity: 100;
+    display: block;
+  }
+
+  button {
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    display: inline-block;
+    padding: 1rem 0.75rem;
+    color: #6c6c6c;
+    font-family: inherit;
+    cursor: pointer;
+    position: relative;
+    z-index: 5;
+  }
+  button:hover {
+    background-color: #13341610;
+  }
+  button span {
+    display: none;
+  }
+  button img {
+    display: none;
+  }
+  button[aria-expanded='false'] img.open {
+    display: block;
+  }
+  button[aria-expanded='true'] img.close {
+    display: block;
+  }
+  ul {
+    margin-top: 0.25rem;
+    background-color: white;
+    font-size: 0.75rem;
+    position: fixed;
+    width: 80%;
+    margin: 0 auto !important;
+    border-radius: 0.5rem;
+    display: none;
+    padding: 1rem !important;
+    inset: 1rem 0 auto 0;
+    z-index: 1;
+  }
+  ul::before {
+    display: none;
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 65px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+  }
+  ul li {
+    display: block;
+  }
+  ul h3 {
+    color: #1a344c;
+    margin: 0;
+  }
+  ul p {
+    margin: 0.25rem 0 0 0;
+  }
+  ul a {
+    text-decoration: none;
+  }
+
+  @media (min-width: 768px) {
+    ul {
+      max-width: 360px;
+      display: none;
+      transform: translate(-2rem);
+      inset: auto;
+    }
+    ul::before {
+      display: block;
+    }
+    button span {
+      display: inline;
+    }
+    button img {
+      display: none !important;
+    }
+  }
+  @media (min-width: 1024px) {
+    .dropdown:hover ul {
+      opacity: 100;
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  const dropdown = document.querySelector('.dropdown')!
+  const btn = dropdown.querySelector('button')!
+  const menu = dropdown.querySelector('ul')!
+
+  function toggleDropdown() {
+    const toggle = String(!(btn.getAttribute('aria-expanded') === 'true'))
+    btn.setAttribute('aria-expanded', toggle)
+  }
+
+  btn.addEventListener('click', toggleDropdown)
+
+  menu.addEventListener(
+    'blur',
+    (e) => {
+      const dropdown = (e.currentTarget as HTMLInputElement).contains(
+        e.relatedTarget! as Node
+      )
+      if (!dropdown) {
+        toggleDropdown()
+      }
+    },
+    true
+  )
+</script>
